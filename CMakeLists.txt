@@ -9,7 +9,10 @@ add_latex_document("Dwarf Therapist.tex"
 		   FORCE_PDF)
 
 if(UNIX AND NOT APPLE)
+	if(NOT DEFINED LATEX_OUTPUT_PATH)
+		set(LATEX_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+	endif()
 	# Installation is currently Linux-only
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/Dwarf Therapist.pdf"
+	install(FILES "${LATEX_OUTPUT_PATH}/Dwarf Therapist.pdf"
 		DESTINATION share/doc/dwarftherapist)
 endif()
