@@ -1,0 +1,25 @@
+git:
+  depth: 1
+dist: trusty
+sudo: false
+language: generic
+addons:
+  apt:
+    packages:
+      - cmake
+      - ninja-build
+      - imagemagick
+      - texlive-latex-extra
+script:
+  - cmake -GNinja -DLATEX_OUTPUT_PATH=out . && ninja
+before_deploy:
+  - mv "out/Dwarf Therapist.pdf" . && zip "Dwarf Therapist Manual.zip" "Dwarf Therapist.pdf"
+deploy:
+  provider: releases
+  api_key:
+    secure: g1ZvpUc9uOApl26XKx5kXKpoeVTGnsQofeJJmuDMtO2ih/Ry5MKk/G+u72IorutT30C9oDycKFyQgPnfn24bx9lcRs8tliH2gna5FO8FXe5up9M7JJyjtDIJyQg64SUzRaM5EFFepeStXtbcSjdfAFrHi3Jm3UQawr6yLX7/jbhI5pkkSZIxwSFXgJnL+7M3EF5QDzcoslYMbK2jQ1d1i0Kc3btH/H5tRPCabiEOTi/qO/Oj+6Ysz7VWMxgl9lZlje6ErZ8vtqzWlwp4PSCqUcjNSwuOCs+P8eechPL2Rpicph9ujB/k0aA7nnZkeFWr146gLvxdnQtU7TWdq134luqfqYSX7g6DneEsi1beWHTl3kmWDm+15xiYOpKI9H6D2kV/nbnZr8AlUcOiyXH4B6MH5yBa7NlNzL3BxH1Ow/CEmEqWvJuE4eJmKCeuB7uOyrjlU8TJF96h5tlocMsRfX6yyBPxDcXgAsp/vLVRcwQPHkkcOF8X52Cx2X6t6I7MFV1i0Hh0FPpVTUygwVJU0pFjt4ptK6orBS3BFIgEI6z0NgOSnpgmTu4G+mPgvhLoXyJYieRUmJlMwMtsbtfFCF8uTOM0WOfbDi/tqD5zSZqcmh+vR6IzfoihW60s5FDiGXxI+F4VFmqNPyGUyyKVKspBhrHjZje2zQFBS9D4+kI=
+  skip_cleanup: true
+  file: "Dwarf Therapist Manual.zip"
+  on:
+    repo: Dwarf-Therapist/Manual
+    tags: true
